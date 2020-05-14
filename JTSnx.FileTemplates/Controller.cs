@@ -1,8 +1,9 @@
 ﻿using JTSnx.BLL.Facade;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
+using System.Threading.Tasks;
+using JTSnx.API.Helpers;
 
 namespace $controllerNamespace$
 {
@@ -13,13 +14,15 @@ namespace $controllerNamespace$
         private readonly $facadeName$ _facade = new $facadeName$();
         private readonly string _connectionString;
         private readonly JsonSerializerSettings _settings;
-        private readonly ILogger<$basename$Controller> _logger;
+        private readonly Logging _log;
+        private string _module = ""; //ENTER MODULE NAME
 
-        public $basename$Controller(IOptions<JTSOptions> options, ILogger<$basename$Controller> logger)
+        public $basename$Controller(IOptions<JTSOptions> options)
         {
             _connectionString = options.Value.ConnString;
             _settings = options.Value.JsonSerializerSettings;
-            _logger = logger;
+            _log = new Logging(options);
+
         }
 
 
